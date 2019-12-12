@@ -6,7 +6,5 @@ makedocs(modules = [NeuralQuantumState],
 
 deploydocs(
     repo = "github.com/mcompen/NeuralQuantumState.jl.git",
-    devbranch = "master",
-    devurl = "dev",
-    versions = ["stable" => "v^", "v#.#", devurl => devurl]
+    versions = ["stable" => "v^", "v#.#"]
 )
