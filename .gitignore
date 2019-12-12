@@ -1,4 +1,6 @@
 *.jl.*.cov
+*.pdf
+*.txt
 *.jl.cov
 *.jl.mem
 docs/build/
