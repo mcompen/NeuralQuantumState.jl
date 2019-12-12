@@ -1,7 +1,7 @@
-# NeuralQuantumState.jl 
+# NeuralQuantumState.jl
 
 [![Build Status](https://travis-ci.com/mcompen/NeuralQuantumState.jl.svg?branch=master)](https://travis-ci.com/mcompen/NeuralQuantumState.jl)
-[![Coveralls](https://coveralls.io/repos/github/mcompen/NeuralQuantumState.jl/badge.svg?branch=master)](https://coveralls.io/github/mcompen/NeuralQuantumState.jl?branch=master)
+[![Coveralls](https://coveralls.io/repos/github/mcompen/NeuralQuantumState.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/mcompen/NeuralQuantumState.jl?branch=master)
 [![Docs](https://img.shields.io/badge/docs-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl)
 
 ## Description
