@@ -18,42 +18,42 @@ function plot_weights(Weights, modelname, n)
 
     p_x = plot( heatmap(all_weights[1], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[1])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims= check_col(all_weights[1])[2]
     )
     p_y = plot( heatmap(all_weights[2], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[2])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims=check_col(all_weights[2])[2]
     )
     p_z = plot( heatmap(all_weights[3], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[3])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims=check_col(all_weights[3])[2]
     )
     p_xx = plot( heatmap(all_weights[4], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[4])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims=check_col(all_weights[4])[2]
     )
     p_yy = plot( heatmap(all_weights[5], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[5])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims=check_col(all_weights[5])[2]
     )
     p_zz = plot( heatmap(all_weights[6], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[6])[1]),
         xticks=0:2:n,
-        xtickfont=font(6), # comment out for n<12
+        xtickfont=font(6),
         yticks=false,
         size=(600,600),
         clims=check_col(all_weights[6])[2]
