@@ -1,8 +1,8 @@
 # NeuralQuantumState.jl
 
 [![Build Status](https://travis-ci.com/mcompen/NeuralQuantumState.jl.svg?branch=master)](https://travis-ci.com/mcompen/NeuralQuantumState.jl)
-[![Coveralls](https://coveralls.io/repos/github/mcompen/NeuralQuantumState.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/mcompen/NeuralQuantumState.jl?branch=master)
-[![Docs](https://img.shields.io/badge/docs-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl)
+[![Coveralls](https://coveralls.io/repos/github/mcompen/NeuralQuantumState.jl/badge.svg?branch=master)](https://coveralls.io/github/mcompen/NeuralQuantumState.jl?branch=master)
+[![Docs](https://img.shields.io/badge/docs-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl/dev)
 
 ## Description
 Solving quantum many-body problems with a Neural Quantum State was first proposed in [1]. This package implements parallel sampling and optimization of many-body wavefunctions of arbitrary Hamiltonians.
@@ -27,7 +27,7 @@ julia > NetSettings = NETSETTINGS(modelname = "U_afh",
         writetofile=true,
         init_therm_steps = 100,
         therm_steps = 50,
-        stat_samples = 2000)
+        stat_samples = 2000)mentation built from the devbranch branch (master by default) is stored a folder determined by the devurl keyword to deploydocs (dev by default).
 julia > energy = run_NQS(NetSettings)
 ```
 ## Info
