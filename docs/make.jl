@@ -1,7 +1,7 @@
 using Documenter, NeuralQuantumState
 
 makedocs(modules = [NeuralQuantumState],
-    authors= "Manu Compen"
+    authors= "Manu Compen",
     sitename="NeuralQuantumState.jl")
 
 deploydocs(
