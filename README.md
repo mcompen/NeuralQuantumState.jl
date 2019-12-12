@@ -13,11 +13,11 @@ Solving quantum many-body problems with a Neural Quantum State was first propose
 ## Example
 ```julia
 julia > using Distributed
-julia > addprocs(2)
+julia > addprocs(2)  # Add no. of desired worker processes.
 julia > @everywhere using Random
 julia > @everywhere using NeuralQuantumState
 julia > @everywhere Random.seed!(1234321)
-julia > NetSettings = NETSETTINGS(modelname = "U_afh",
+julia > NetSettings = NETSETTINGS(modelname = "U_afh", # Marshall tranformed AFH.
         repetitions =1000,
         n = 6,
         α = 3,
@@ -27,7 +27,7 @@ julia > NetSettings = NETSETTINGS(modelname = "U_afh",
         writetofile=true,
         init_therm_steps = 100,
         therm_steps = 50,
-        stat_samples = 2000)mentation built from the devbranch branch (master by default) is stored a folder determined by the devurl keyword to deploydocs (dev by default).
+        stat_samples = 2000)
 julia > energy = run_NQS(NetSettings)
 ```
 ## Info
