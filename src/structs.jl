@@ -32,7 +32,7 @@ Generate settings by specifying values for non-default fields. Parsed with
     file.
 
 # Examples
-```jldoctest
+```julia-repl
 julia> NetSettings = NETSETTINGS(
          modelname = \"U_afh\",
          repetitions =1000,
