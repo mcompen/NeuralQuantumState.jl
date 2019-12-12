@@ -11,12 +11,10 @@ using ProgressMeter
 using DelimitedFiles
 using StatsBase
 using Distributions
-using IterativeSolvers
 using Plots
 import GR
 using LaTeXStrings
 using Plots.PlotMeasures
-
 
 include("structs.jl")
 include("weights.jl")
