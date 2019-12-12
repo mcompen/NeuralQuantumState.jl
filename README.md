@@ -5,7 +5,7 @@
 [![Docs](https://img.shields.io/badge/docs-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl)
 
 ## Description
-Solving quantum many-body problems with a Neural Quantum State was first proposed in [1]. This package provides a Julia implementation for performing parallel sampling and optimization of many-body wavefunctions of arbitrary Hamiltonians.
+Solving quantum many-body problems with a Neural Quantum State was first proposed in [1]. This package implements parallel sampling and optimization of many-body wavefunctions of arbitrary Hamiltonians.
 
 [1] Carleo, Giuseppe, and Matthias Troyer. "Solving the quantum many-body problem with artificial neural networks." Science 355.6325 (2017): 602-606.
 
