@@ -13,7 +13,6 @@ using StatsBase
 using Distributions
 using Plots
 import GR
-using LaTeXStrings
 using Plots.PlotMeasures
 
 include("structs.jl")
