@@ -22,11 +22,8 @@ function optimize!(CGP::CGPARAMS, VarDervs::VARDERIVS, OptParams::OPTPARAMSMFREE
     elocs, forces_w, γ, NetSettings)
     @unpack o_tot = VarDervs
     @unpack f = OptParams
-    # Always iterative. However, the keyword argument is kept in order to make
-    # overloading of the optimize!() function possible with non-matrixfree
-    # OptParams structs.
-    o_tot .-=  mean(mean(o_tot, dims=2), dims=3) # mean over all vardervs on all workers
-    elocs .-= mean(elocs)  # mean over all eloc samples on all workers
+    o_tot .-=  mean(mean(o_tot, dims=2), dims=3) # Mean over all vardervs on all workers.
+    elocs .-= mean(elocs)  # Mean over all eloc samples on all workers.
     mul!(f, forces_w, VarDervs, elocs, NetSettings)
 
     cg_iters = my_cg!(CGP, VarDervs, OptParams, γ, NetSettings, tol=1e-3)
@@ -59,8 +56,8 @@ function optimize!(CGP::CGPARAMS, VarDervs::VARDERIVS, OptParams::OPTPARAMS,
     @unpack iterative_inverse, mc_trials, dim_rbm, regulator = NetSettings
     @unpack f, s, dw_tot = OptParams
     @unpack o_tot = VarDervs
-    o_tot .-= mean(mean(o_tot, dims=2), dims=3)  # mean over all vardervs on all workers
-    elocs .-= mean(elocs)  # mean over all eloc-samples on all workers
+    o_tot .-= mean(mean(o_tot, dims=2), dims=3)
+    elocs .-= mean(elocs)
 
     mul!(f, forces_w, VarDervs, elocs, NetSettings)
 
@@ -85,7 +82,7 @@ function optimize!(CGP::CGPARAMS, VarDervs::VARDERIVS, OptParams::OPTPARAMS,
             VarDervs.reg = 2 * VarDervs.reg
             inv_s = inv(Hermitian(VarDervs.reg *
                 Matrix{Complex{Float64}}(I, dim_rbm, dim_rbm) + s))
-            VarDervs.reg = regulator  # revert to original in the case λ was raised.
+            VarDervs.reg = regulator  # Revert to original in the case λ was raised.
         end
         dw_tot .= -γ * inv_s * f
     end
