@@ -9,6 +9,11 @@ Solving quantum many-body problems with a Neural Quantum State was first propose
 
 [1] Carleo, Giuseppe, and Matthias Troyer. "Solving the quantum many-body problem with artificial neural networks." Science 355.6325 (2017): 602-606.
 
+## Installation
+```julia
+julia > ]
+(v1.X) pkg> add NeuralQuantumState
+```
 
 ## Example
 ```julia
