@@ -15,17 +15,16 @@ function init_stat(statStruct, n)
 end
 
 """
-    stats_calculator(NetParams, HamiltWeights, warm_states)
+    stats_calculator(NetParams, HamiltWeights, warm_states, NetSettings)
 
-Saves the statistics given (optimized) network parameters, the model hamiltonian
-weights, the entire parallel RNG object, and "warm states" from the last markov
-chain.
+Samples the energy and statistics after `NetParams` are converged.
 """
 function stats_calculator(NetParams, HamiltWeights, warm_states, NetSettings)
     @unpack n = NetSettings
     stats = init_stat(STATISTICS, n)
     eloc = 0.0
     mystats = [eloc, stats]
+
     @sync for j=1:nworkers()
         @async mystats .+= remotecall_fetch(remote_stats_sampler,
             workers()[j],
@@ -67,6 +66,7 @@ function remote_stats_sampler(NetParams, HamiltWeights, NetSettings; warm_state=
         end
         eloc = find_stats!(NetState, NetParams, Statistics, HamiltWeights, eloc, NetSettings)
     end
+
     eloc /= stat_samples
     Statistics /= stat_samples
     return eloc, Statistics
@@ -106,6 +106,7 @@ function find_stats!(NetState, NetParams, Statistics, HamiltWeights, eloc, NetSe
             s_zz[i, j] += state_ij_tmp
         end
     end
+    
     return eloc
 end
 
