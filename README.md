@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.com/mcompen/NeuralQuantumState.jl.svg?branch=master)](https://travis-ci.com/mcompen/NeuralQuantumState.jl)
 [![Coveralls](https://coveralls.io/repos/github/mcompen/NeuralQuantumState.jl/badge.svg?branch=master)](https://coveralls.io/github/mcompen/NeuralQuantumState.jl?branch=master)
-[![Docs](https://img.shields.io/badge/docs-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl/dev)
+[![Docs](https://img.shields.io/badge/docs-dev-red.svg)](https://mcompen.github.io/NeuralQuantumState.jl/dev)
+[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://mcompen.github.io/NeuralQuantumState.jl/stable)
+
 
 ## Description
 Solving quantum many-body problems with a Neural Quantum State was first proposed in [1]. This package implements parallel sampling and optimization of many-body wavefunctions of arbitrary Hamiltonians.
