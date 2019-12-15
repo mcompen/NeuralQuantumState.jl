@@ -15,52 +15,19 @@ function plot_weights(Weights, modelname, n)
     posneg_col = [:pu_or; (-absmax(Weights), +absmax(Weights))]
     pos_col = [:inferno; (0, +absmax(Weights))]
     check_col(weights) = any(weights .< 0) ? posneg_col : pos_col
+    heatmap_plots = []
+    aspect_ratio = [repeat([n], 3); repeat([1], 3)]
 
-    p_x = plot( heatmap(all_weights[1], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[1])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims= check_col(all_weights[1])[2]
-    )
-    p_y = plot( heatmap(all_weights[2], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[2])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims=check_col(all_weights[2])[2]
-    )
-    p_z = plot( heatmap(all_weights[3], aspect_ratio=n, framestyle=:none, color=check_col(all_weights[3])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims=check_col(all_weights[3])[2]
-    )
-    p_xx = plot( heatmap(all_weights[4], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[4])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims=check_col(all_weights[4])[2]
-    )
-    p_yy = plot( heatmap(all_weights[5], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[5])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims=check_col(all_weights[5])[2]
-    )
-    p_zz = plot( heatmap(all_weights[6], aspect_ratio=1, framestyle=:none, color=check_col(all_weights[6])[1]),
-        xticks=0:2:n,
-        xtickfont=font(6),
-        yticks=false,
-        size=(600,600),
-        clims=check_col(all_weights[6])[2]
-    )
+    for i=1:6
+        p = plot( heatmap(all_weights[i], aspect_ratio=aspect_ratio[i],
+            framestyle=:none, color=check_col(all_weights[i])[1]),
+            size=(600,600),
+            clims= check_col(all_weights[i])[2] )
+        push!(heatmap_plots, p)
+    end
 
-    p_k = plot(p_x, p_y, p_z, layout=(1,3))
-    p_kk = plot(p_xx, p_yy, p_zz, layout=(1,3))
+    p_k = plot(heatmap_plots[1:3]..., layout=(1,3))
+    p_kk = plot(heatmap_plots[4:6]..., layout=(1,3))
 
     plot(p_k, p_kk, layout=(2,1))
     savefig("$modelname-$n-weights-all.pdf")
@@ -76,28 +43,19 @@ function plot_statistics(Statistics, namebase, n)
     posneg_col = [:pu_or; (-1.0, 1.0)]
     pos_col = [:inferno; (0.0, 1.0)]
     check_col(stats) = any(stats .< 0) ? posneg_col : pos_col
+    heatmap_plots = []
+    aspect_ratio = [repeat([0.5 * n], 3); repeat([1], 3)]
 
-    p_x = plot( heatmap(all_stats[1], aspect_ratio=n, framestyle=:none, color=check_col(all_stats[1])[1]),
-        size=(600,600),
-        clims= check_col(all_stats[1])[2])
-    p_y = plot( heatmap(all_stats[2], aspect_ratio=n, framestyle=:none, color=check_col(all_stats[2])[1]),
-        size=(600,600),
-        clims=check_col(all_stats[2])[2])
-    p_z = plot( heatmap(all_stats[3], aspect_ratio=n, framestyle=:none, color=check_col(all_stats[3])[1]),
-        size=(600,600),
-        clims=check_col(all_stats[3])[2])
-    p_xx = plot( heatmap(all_stats[4], aspect_ratio=1, framestyle=:none, color=check_col(all_stats[4])[1]),
-        size=(600,600),
-        clims=check_col(all_stats[4])[2])
-    p_yy = plot( heatmap(all_stats[5], aspect_ratio=1, framestyle=:none, color=check_col(all_stats[5])[1]),
-        size=(600,600),
-        clims=check_col(all_stats[5])[2])
-    p_zz = plot( heatmap(all_stats[6], aspect_ratio=1, framestyle=:none, color=check_col(all_stats[6])[1]),
-        size=(600,600),
-        clims=check_col(all_stats[6])[2])
+    for i=1:6
+        p = plot( heatmap(all_stats[i], aspect_ratio=aspect_ratio[i],
+            framestyle=:none, color=check_col(all_stats[i])[1]),
+            size=(600,600),
+            clims= check_col(all_stats[i])[2] )
+        push!(heatmap_plots, p)
+    end
 
-    p_k = plot(p_x, p_y, p_z, layout=(1,3))
-    p_kk = plot(p_xx, p_yy, p_zz, layout=(1,3))
+    p_k = plot(heatmap_plots[1:3]..., layout=(1,3))
+    p_kk = plot(heatmap_plots[4:6]..., layout=(1,3))
 
     plot(p_k, p_kk, layout=(2,1))
     savefig("$namebase-stats-all.pdf")
