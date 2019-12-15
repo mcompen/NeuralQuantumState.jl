@@ -30,6 +30,8 @@ Generate settings by specifying values for non-default fields. Parsed with
 - `save_figures::Bool `: Save statistics in figure (default: `true`).
 - `writetofile::Bool`: Write optimized NQS parameters, energy[, statistics] to a
     file.
+- `use_meter::Bool`: Use a ProgressMeter bar to visualize progress (default:
+    `true`).
 
 # Examples
 ```julia-repl
@@ -66,6 +68,7 @@ calc_stat: Bool true
 stat_samples: Int64 5000
 save_figures: Bool true
 writetofile: Bool true
+use_meter: Bool true
 ```
 """
 @with_kw struct NETSETTINGS{S<:String, T<:Int, U<:Float64, V<:Bool}
