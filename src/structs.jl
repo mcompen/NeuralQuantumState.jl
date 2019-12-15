@@ -17,7 +17,7 @@ Generate settings by specifying values for non-default fields. Parsed with
 - `regulator::Float`: Regularization parameter of the S-matrix.
 - `init_therm_steps::Int`: Burn-in steps on first repetition.
 - `therm_steps::Int`: Burn-in on other repetitions.
-- `nflips::Int`: Number of flips to be performed per mc_trial (default: `n`).
+- `nflips::Int`: Number of flips to be performed per mc_trial (default: `1`).
 - `pbc::Bool`: Periodic boundary conditions for lattice (default: `true`).
 - `mag0::Bool`: Sample only in sector ∑s_z = 0 (default: `false`).
 - `mfree::Bool`: Matrix-free inversion (default: `true`). Overridden to `false`.
@@ -70,28 +70,29 @@ writetofile: Bool true
 """
 @with_kw struct NETSETTINGS{S<:String, T<:Int, U<:Float64, V<:Bool}
     modelname::S
-    test_iter::T = 1            # Number of independent consecutive Carleo/Troyer runs
-    repetitions::T              # Number of wavefunction optimizations
-    n::T                        # Number of visible neurons
-    α::T                        # No. hidden / No. visible
-    m::T = α * n                # Number of hidden neurons
-    dim_rbm::T = m * n + m + n  # Total amount of free parameters
-    γ_init::U = 0.05            # Learning parameter
-    γ_decay::U = 1.0
-    mc_trials::T                # Number of var derivatives per repetition
-    mc_steps::T = n             # Number of MH steps per sample
-    regulator::U = 0.1
-    init_therm_steps::T         # burn-in / thermalization first iter
-    therm_steps::T              # burn-in / thermalization
+    test_iter::T = 1            # Number of independent consecutive runs.
+    repetitions::T              # Number of wavefunction optimizations.
+    n::T                        # Number of visible neurons.
+    α::T                        # No. hidden / No. visible.
+    m::T = α * n                # Number of hidden neurons.
+    dim_rbm::T = m * n + m + n  # Total amount of free parameters.
+    γ_init::U = 0.05            # Learning parameter.
+    γ_decay::U = 1.0            # Learning parameter at rep. t: γ*(γ_decay)^t.
+    mc_trials::T                # Number of var derivatives per repetition.
+    mc_steps::T = n             # Number of MH steps per sample.
+    regulator::U = 0.1          # Regularization for S-matrix inversion.
+    init_therm_steps::T         # Burn-in / thermalization first iter.
+    therm_steps::T              # Burn-in / thermalization.
     nflips::T = 1               # Number of flips to be performed per MH step
     pbc::V = true               # Periodic boundary conditions. See also `weights.jl`.
-    mag0::V = false             # Sample only in sector ∑s_z = 0
-    mfree::V = true             # assumed false when iterative_inverse = false
-    iterative_inverse::V = true # assumed true when mfree = true. true/false when mfree = false.
+    mag0::V = false             # Sample only in sector ∑s_z = 0.
+    mfree::V = true             # Assumed false when iterative_inverse = false.
+    iterative_inverse::V = true # Assumed true when mfree = true. true/false when mfree = false.
     calc_stat::V = true         # Calculate statistics
     stat_samples::T             # No. of samples for statistics calculation.
     save_figures::V = true      # Save statistics as figure
-    writetofile::V = true       # write network parameters / energy to a file
+    writetofile::V = true       # Write network parameters / energy to a file.
+    use_meter::V = true         # Use ProgressMeter.
 end
 
 mutable struct WEIGHTS{S<:Array{Float64, 1}, T<:Array{Float64, 2}}
@@ -114,7 +115,7 @@ mutable struct STATISTICS{S<:Array{Float64, 1},
 end
 
 mutable struct NETPARAMS{S<:SharedArray{Complex{Float64}, 1},
-    T<:SharedArray{Complex{Float64}, 2}}  # Struct for typing of all network parameters
+    T<:SharedArray{Complex{Float64}, 2}}
     a::S           # Bias on visible neurons
     b::S           # Hidden neurons
     w::T           # Connection matrix
@@ -123,10 +124,10 @@ end
 mutable struct NETSTATE{S<:Array{Int, 1},
         T<:Array{Complex{Float64}, 1},
         U<:Complex{Float64}}
-    state::S       # State of visible neurons
-    theta::T       # Look-up table
-    theta_upd::T   # Updated look-up table for a MH step
-    logcoshsum::U    # cosh product lookup
+    state::S        # State of visible neurons.
+    theta::T        # Look-up table.
+    theta_upd::T    # Updated look-up table for a MH step.
+    logcoshsum::U   # Logarithmic cosh product lookup.
     logcoshsum_upd::U
 end
 
@@ -137,7 +138,7 @@ mutable struct VARDERIVS{S<:SharedArray{Complex{Float64}, 3},
 end
 
 mutable struct OPTPARAMS{S<:Array{Complex{Float64}, 2},
-    T<:Array{Complex{Float64}, 1}}  # Sets the types of the optimization variables
+    T<:Array{Complex{Float64}, 1}}
     s::S           # S-matrix
     f::T           # Forces
     dw_tot::T

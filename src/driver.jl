@@ -1,17 +1,10 @@
-#=
-main:
-- Julia version: 1.1
-- Author: Manu Compen
-- Date: 2019-05-08
-=#
-
 """
-Runs the Carleo Troyer (2018) algorithm.
+Runs the Carleo & Troyer (2017) algorithm.
 """
 
 function main(NetSettings)
     @unpack mfree, mc_trials, dim_rbm, n, repetitions, calc_stat, γ_init, γ_decay,
-    save_figures, modelname = NetSettings
+    save_figures, modelname, use_meter = NetSettings
 
     HamiltWeights = init_weights(WEIGHTS, modelname, n)
     NetParams = init_params(NETPARAMS, NetSettings)
@@ -24,9 +17,12 @@ function main(NetSettings)
         OptParams = init_optim(OPTPARAMS, NetSettings)
     end
 
-    elocs = SharedArray(zeros(Complex{Float64}, mc_trials, nworkers()))  # stores the energy samples of each worker in a column
-    forces_w = SharedArray(zeros(Complex{Float64}, dim_rbm, nworkers()))  # stores the forces of each worker in columns
-    warm_states = zeros(Int, n, nworkers())  # saves last visited state in a chain
+    elocs = SharedArray(zeros(Complex{Float64}, mc_trials, nworkers()))
+    # Stores the energy samples of each worker in a column.
+    forces_w = SharedArray(zeros(Complex{Float64}, dim_rbm, nworkers()))
+    # Stores the forces of each worker in a column.
+    warm_states = zeros(Int, n, nworkers())
+    # Saves last visited state in a chain.
     mean_e = zeros(repetitions)
     γ = γ_init
 
@@ -49,7 +45,10 @@ function main(NetSettings)
         cg_iters = optimize!(CGParams, VarDervs, OptParams, elocs, forces_w, γ, NetSettings)
         update_netparams!(NetParams, OptParams, NetSettings)
         γ *= γ_decay
-        ProgressMeter.next!(progress_gui; showvalues = [(:iter,i), (:E,mean_e[i]), (:CG_iters, cg_iters)])
+        if use_meter
+            ProgressMeter.next!(progress_gui; showvalues = [(:iter,i),
+                (:E,mean_e[i]), (:CG_iters, cg_iters)])
+        end
     end
     @everywhere GC.gc()
     eloc_and_stats = [0.0, init_stat(STATISTICS, n)]
