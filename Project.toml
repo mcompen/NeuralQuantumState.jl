@@ -1,7 +1,7 @@
 name = "NeuralQuantumState"
 uuid = "b766470a-6a6d-4ee5-8c70-1dce02664e06"
 authors = ["Manu Compen"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
