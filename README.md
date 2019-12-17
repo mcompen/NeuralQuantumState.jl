@@ -12,8 +12,8 @@ Solving quantum many-body problems with a Neural Quantum State was first propose
 [1] Carleo, Giuseppe, and Matthias Troyer. "Solving the quantum many-body problem with artificial neural networks." Science 355.6325 (2017): 602-606.
 
 ## Installation
+Press `]` in the REPL and simply add the package by typing:
 ```julia
-julia > ]
 (v1.X) pkg> add NeuralQuantumState
 ```
 
@@ -23,18 +23,21 @@ julia > using Distributed
 julia > addprocs(2)  # Add no. of desired worker processes.
 julia > @everywhere using Random
 julia > @everywhere using NeuralQuantumState
-julia > @everywhere Random.seed!(1234321)
-julia > NetSettings = NETSETTINGS(modelname = "U_afh", # Marshall tranformed AFH.
-        repetitions =1000,
-        n = 6,
-        α = 3,
-        mag0 = true,
-        γ_decay = 0.997,
-        mc_trials = 500,
-        writetofile=true,
-        init_therm_steps = 100,
-        therm_steps = 50,
-        stat_samples = 2000)
+julia > @sync for i in workers()
+            @async remotecall_wait(Random.seed!, i, i * 99999)
+        end
+julia > NetSettings = NETSETTINGS(
+            modelname = "U_afh", # Marshall transformed AFH.
+            repetitions =1000,
+            n = 6,
+            α = 3,
+            mag0 = true,
+            γ_decay = 0.997,
+            mc_trials = 500,
+            writetofile=true,
+            init_therm_steps = 100,
+            therm_steps = 50,
+            stat_samples = 2000)
 julia > energy = run_NQS(NetSettings)
 ```
 ## Info
